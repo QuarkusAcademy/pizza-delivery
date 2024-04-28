@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>samples/pizzas-api</module>
+        <module>pizza-api</module>
     </modules>
 
     <properties>
