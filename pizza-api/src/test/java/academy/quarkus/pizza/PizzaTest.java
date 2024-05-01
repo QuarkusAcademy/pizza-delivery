@@ -13,7 +13,7 @@ public class PizzaTest {
 
     @Test
     public void testGetPizzas(){
-        List<Pizza> ps = pizzaResource.getPizza();
+        List<Pizza> ps = pizzaResource.getPizzas();
         assertFalse(ps.isEmpty());
     }
 }
