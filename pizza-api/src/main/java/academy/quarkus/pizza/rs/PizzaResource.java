@@ -1,6 +1,9 @@
 package academy.quarkus.pizza.rs;
 
+import academy.quarkus.pizza.model.Category;
+import academy.quarkus.pizza.model.Location;
 import academy.quarkus.pizza.model.Pizza;
+import academy.quarkus.pizza.model.Store;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
@@ -10,23 +13,21 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
+import java.util.Map;
 
-@Path("/pizza")
+@Path("pizza")
 public class PizzaResource {
 
-    @Transactional
-    public void init(@Observes StartupEvent ev){
-        var p1 = new Pizza("Marguerita");
-        p1.persist();
-
-        var p2 = new Pizza("Mushrooms");
-        p2.persist();
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Pizza> getPizzas() {
-        List<Pizza> result =  Pizza.listAll();
+    public Map<String, Object> getIndexData() {
+        var store = Store.findNearest();
+        var categories = Category.listByStore(store);
+        Map<String, Object> result = Map.of(
+                "store", store,
+                "categories", categories
+        );
         return result;
     }
 }
