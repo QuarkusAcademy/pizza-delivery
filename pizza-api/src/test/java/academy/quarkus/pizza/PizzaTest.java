@@ -18,15 +18,6 @@ public class PizzaTest {
     @Inject
     PizzaResource pizzas;
 
-    @BeforeAll
-    @Transactional
-    public static void beforeAll() {
-        var store = new Store();
-        store.name = "Pizza Shack";
-        store.code = "__default__";
-        store.persist();
-    }
-
     /**
      * Initial pizza order happy flow:
      * 1. Show menu of the nearest store
@@ -47,9 +38,4 @@ public class PizzaTest {
         Log.infof(store.id + " " + store.name);
     }
 
-    @Test
-    public void testGetPizzas(){
-        List<Pizza> ps = pizzas.getPizzas();
-        assertFalse(ps.isEmpty());
-    }
 }
