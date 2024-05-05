@@ -1,8 +1,6 @@
 package academy.quarkus.pizza;
 
-import academy.quarkus.pizza.model.Location;
-import academy.quarkus.pizza.model.Pizza;
-import academy.quarkus.pizza.model.Store;
+import academy.quarkus.pizza.model.*;
 import academy.quarkus.pizza.rs.PizzaResource;
 import io.quarkus.logging.Log;
 import io.quarkus.test.junit.QuarkusTest;
@@ -11,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @QuarkusTest
@@ -36,6 +36,28 @@ public class PizzaTest {
         // THEN
         assertNotNull(store);
         Log.infof(store.id + " " + store.name);
+    }
+
+    @Test
+    public void testAddToTicket(){
+        // GIVEN
+        var store = Store.persist("Test Shack", "__test__");
+
+        var trad = Category.persist(store, "Traditional", "10.99");
+        var marg = Pizza.persist("Marguerita");
+        var mush = Pizza.persist("Mushrooms");
+        trad.addPizzas(marg, mush);
+        var julio = Person.persist("Julio", "julio@caravana.cloud",  "+5 (55) 5555-5555");
+
+        // WHEN
+        var ticket = Ticket.persist(julio, "Av Mofarrej 1500", "ap 94E");
+        ticket.addItem(marg, trad.price, 2);
+        ticket.addItem(mush, trad.price, 1);
+        var ticketValue = ticket.getValue();
+
+        // THEN
+        var expectedValue = new BigDecimal("32.97");
+        assertEquals(expectedValue, ticketValue);
     }
 
 }

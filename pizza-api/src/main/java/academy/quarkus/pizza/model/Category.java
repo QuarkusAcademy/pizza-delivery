@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.panache.common.Sort;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class Category extends PanacheEntity {
 
     public Category(){}
 
+    @Transactional()
     public static Category persist(Store store, String name, String price){
         var result = new Category();
         result.store = store;

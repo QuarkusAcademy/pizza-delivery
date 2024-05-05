@@ -3,13 +3,20 @@ package academy.quarkus.pizza.dev;
 import academy.quarkus.pizza.model.Category;
 import academy.quarkus.pizza.model.Pizza;
 import academy.quarkus.pizza.model.Store;
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 public class SampleDataInit {
+    @Inject
+    LaunchMode mode;
+
     @Transactional
     public void init(@Observes StartupEvent ev){
+        if (LaunchMode.NORMAL.equals(mode))
+            return;
         var store = Store.persist("Pizza Shack", "__default__");
 
         var trad = Category.persist(store, "Traditional", "10.99");
