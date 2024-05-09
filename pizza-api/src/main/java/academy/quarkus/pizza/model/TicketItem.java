@@ -9,11 +9,14 @@ import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class TicketItem extends PanacheEntity {
     @ManyToOne(
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     public Ticket ticket;
 
     @ManyToOne
