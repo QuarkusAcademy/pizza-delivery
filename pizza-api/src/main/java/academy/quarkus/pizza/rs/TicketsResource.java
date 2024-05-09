@@ -1,10 +1,14 @@
 package academy.quarkus.pizza.rs;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
+import academy.quarkus.pizza.event.TicketSubmitted;
 import academy.quarkus.pizza.model.Ticket;
 import academy.quarkus.pizza.model.TicketStatus;
 import io.quarkus.runtime.annotations.ConfigDocDefault;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.Consumes;
@@ -21,6 +25,8 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/tickets")
 @Transactional
 public class TicketsResource {
+    @Inject
+    Event<TicketSubmitted> events;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -83,8 +89,10 @@ public class TicketsResource {
         }
         ticket.status = TicketStatus.SUBMITTED;
         ticket.persistAndFlush();
+        events.fire(new TicketSubmitted(
+                ticket,
+                LocalDateTime.now()
+        ));
         return ticket;
     }
-
-    
 }
