@@ -1,19 +1,17 @@
 package academy.quarkus.pizza.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.panache.common.Sort;
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.transaction.Transactional;
 
 @Entity
-
 public class Pizza extends PanacheEntity {
     public String description;
 
     public Pizza() {
     }
 
+    @Transactional()
     public static Pizza persist(String description) {
         var result = new Pizza();
         result.description = description;

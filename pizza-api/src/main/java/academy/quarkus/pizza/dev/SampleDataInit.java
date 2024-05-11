@@ -1,8 +1,6 @@
 package academy.quarkus.pizza.dev;
 
-import academy.quarkus.pizza.model.Category;
-import academy.quarkus.pizza.model.Pizza;
-import academy.quarkus.pizza.model.Store;
+import academy.quarkus.pizza.model.*;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
@@ -17,18 +15,24 @@ public class SampleDataInit {
     public void init(@Observes StartupEvent ev){
         if (LaunchMode.NORMAL.equals(mode))
             return;
-        var shack = Store.persist("Pizza Shack","__default__");
+        var store = Store.persist("Pizza Shack", "__default__");
 
-        var trad = Category.persist(shack, "Traditional", "14.99");
-        var muss = Pizza.persist("Mozzarella");
-        var napo = Pizza.persist("Napolitan");
-        var capr = Pizza.persist("Caprese");
-        trad.addPizzas(muss, napo, capr);
+        var trad = Category.persist(store, "Traditional", "10.99");
+        var marg = Pizza.persist("Marguerita");
+        var mush = Pizza.persist("Mushrooms");
+        trad.addPizzas(marg, mush);
 
-        var prem = Category.persist(shack, "Premium", "19.99");
-        var mush = Pizza.persist("Mushroom");
-        var blue = Pizza.persist("Gorgonzola");
-        prem.addPizzas(mush, blue);
+        var premium = Category.persist(store, "Premium", "14.99");
+        var cheeses = Pizza.persist("4 Cheeses");
+        var veggies = Pizza.persist("Vegetables");
+        var napoles = Pizza.persist("Napoletana");
+        premium.addPizzas(cheeses, veggies, napoles);
 
+        var winona = Person.persist("Winona Courier", "cool@girl.movie", "+2222222222222");
+        var courier = Courier.persist(winona.id, "123467890");
+
+        var ticket = Ticket.persist(winona, "Rabbit Hole 1", "Tea Room", "+33333333");
+        var delivery = Delivery.persist(store.id, ticket.id, winona.id);
+        delivery.updateLocation(delivery.id, 0.0, 0.0);
     }
 }
