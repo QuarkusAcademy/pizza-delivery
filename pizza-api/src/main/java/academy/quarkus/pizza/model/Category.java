@@ -45,6 +45,7 @@ public class Category extends PanacheEntity {
         return result;
     }
 
+    @Transactional
     public void addPizzas(Pizza... ps){
         this.pizzas.addAll(Arrays.asList(ps));
     }
