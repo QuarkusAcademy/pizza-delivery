@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
 
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
@@ -31,7 +30,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html"><span class="flaticon-pizza-1 mr-1"></span>{context.titleHead}<br><small>{context.titleTail}</small></a>
+        <a class="navbar-brand" href="index.html"><span class="flaticon-pizza-1 mr-1"></span>{context.title}<br><small>{context.config.slogan}</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -147,7 +146,7 @@
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/jquery.timepicker.min.js"></script>
 <script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={context.googleMapsKey}&sensor=true"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={context.config.googleMapsApiKey}"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 
