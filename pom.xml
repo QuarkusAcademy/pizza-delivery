@@ -12,6 +12,7 @@
     <modules>
         <module>pizza-api</module>
         <module>pizza-ren</module>
+        <module>pizza-vdn</module>
     </modules>
 
     <properties>
