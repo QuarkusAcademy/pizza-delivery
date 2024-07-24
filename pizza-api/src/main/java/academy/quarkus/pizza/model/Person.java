@@ -1,5 +1,7 @@
 package academy.quarkus.pizza.model;
 
+import java.io.Serializable;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
@@ -8,6 +10,8 @@ public class Person extends PanacheEntity {
     String name;
     String email; 
     String phone;
+
+    public Person(){}
 
     public static Person persist(String name, String email, String phone) {
         var result = new Person();

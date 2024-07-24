@@ -17,6 +17,7 @@ public class SampleDataInit {
             return;
         var store = Store.persist("Pizza Shack", "__default__");
 
+        /*
         var trad = Category.persist(store, "Traditional", "10.99");
         var marg = Pizza.persist("Marguerita");
         var mush = Pizza.persist("Mushrooms");
@@ -34,5 +35,6 @@ public class SampleDataInit {
         var ticket = Ticket.persist(winona, "Rabbit Hole 1", "Tea Room", "+33333333");
         var delivery = Delivery.persist(store.id, ticket.id, winona.id);
         delivery.updateLocation(delivery.id, 0.0, 0.0);
+        */
     }
 }

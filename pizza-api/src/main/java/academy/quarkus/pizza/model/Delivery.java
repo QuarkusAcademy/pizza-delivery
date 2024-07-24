@@ -3,6 +3,7 @@ package academy.quarkus.pizza.model;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.transaction.Transactional;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Embedded;
 
@@ -21,6 +22,7 @@ public class Delivery extends PanacheEntity {
     @Embedded
     Location location;
 
+    @Transactional
     public static Delivery persist(Long storeId, Long ticketId, Long courierId) {
         var result = new Delivery();
         result.courier = Person.findById(courierId);
