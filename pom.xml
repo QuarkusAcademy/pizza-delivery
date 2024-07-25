@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>pizza-core</module>
         <module>pizza-api</module>
         <module>pizza-ren</module>
         <module>pizza-vdn</module>
