@@ -2,10 +2,13 @@ package academy.quarkus.pizza.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ticket extends PanacheEntity {
+    @ManyToOne
     Person customer;
+
     String address1; 
     String address2; 
     String phone;
