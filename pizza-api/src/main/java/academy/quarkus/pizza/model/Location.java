@@ -1,6 +1,5 @@
 package academy.quarkus.pizza.model;
 
-import io.quarkus.logging.Log;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 

@@ -5,6 +5,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.transaction.Transactional;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Embedded;
 
 
@@ -14,13 +15,17 @@ public class Delivery extends PanacheEntity {
     Store store;
 
     @OneToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     Ticket ticket;
 
     @ManyToOne
+    @JoinColumn(name = "courier_id")
     Person courier;
 
     @Embedded
     Location location;
+
+    public Delivery(){}
 
     @Transactional
     public static Delivery persist(Long storeId, Long ticketId, Long courierId) {
