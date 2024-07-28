@@ -7,7 +7,7 @@ RUN bash -c "sudo apt-get update"
 RUN bash -c "sudo pip install --upgrade pip"
 
 # Java
-ARG JAVA_SDK="22-graalce"
+ARG JAVA_SDK="17.0.9-graalce"
 RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh \
     && sdk install java $JAVA_SDK \
     && sdk default java $JAVA_SDK \

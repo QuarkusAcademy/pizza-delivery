@@ -1,4 +1,4 @@
-package com.example.starter.base;
+package academy.quarkus.vaadin;
 
 import jakarta.enterprise.context.Dependent;
 

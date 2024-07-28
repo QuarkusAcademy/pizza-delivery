@@ -1,4 +1,4 @@
-package academy.quarkus.pizza.dev;
+package academy.quarkus.pizza.init;
 
 import academy.quarkus.pizza.model.*;
 import io.quarkus.runtime.LaunchMode;
