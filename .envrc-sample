@@ -1,2 +1,8 @@
+# App Settings
 export APP_SLOGAN="Delicious!!!"
-export APP_GOOGLE_MAPS_API_KEY="AIzaSyBggumOgz_ccxYYmwRgjbFlGeMe7kqdpew"
+export APP_GOOGLE_MAPS_API_KEY="AIzUYgvlsdkjfgumOgz_ccxYYmwRgjbFlGeMe7kqdpew"
+
+# Quarkus Settings
+export QUARKUS_OIDC_PROVIDER="google"
+export QUARKUS_OIDC_CLIENT_ID="99990904-ubfv3jbcbl66qoasjv56idt833b712t2.apps.googleusercontent.com"
+export QUARKUS_OIDC_CREDENTIALS_SECRET="ATYUIOP-xMWDMaZ03XL0f_eShFbMCFVCx3YT"
