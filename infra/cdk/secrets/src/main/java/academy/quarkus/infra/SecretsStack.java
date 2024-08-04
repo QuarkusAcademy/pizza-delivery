@@ -1,14 +1,11 @@
 package academy.quarkus.infra;
 
-import software.constructs.Construct;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
-
 import org.eclipse.microprofile.config.ConfigProvider;
 
-import software.amazon.awscdk.Duration;
-import software.amazon.awscdk.services.sqs.Queue;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.ssm.StringParameter;
+import software.constructs.Construct;
 
 public class SecretsStack extends Stack {
     public SecretsStack(final Construct scope, final String id) {
