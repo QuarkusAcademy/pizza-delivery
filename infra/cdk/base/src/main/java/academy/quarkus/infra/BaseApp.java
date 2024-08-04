@@ -1,16 +1,15 @@
 package academy.quarkus.infra;
 
-import software.amazon.awscdk.App;
-import software.amazon.awscdk.StackProps;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.annotations.QuarkusMain;
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
+import software.amazon.awscdk.App;
+import software.amazon.awscdk.StackProps;
 
 @QuarkusMain
 public class BaseApp 
@@ -20,7 +19,9 @@ public class BaseApp
     App app;
 
     public void init(@Observes StartupEvent event){
-        new NetworkStack(app, "NetworkStack", StackProps.builder().build());
+        var stackProps = StackProps.builder().build();
+        var networkStack = new NetworkStack(app, "NetworkStack", stackProps);
+        new DatabaseStack(app, "DatabaseStack", stackProps, networkStack);
     }
 
     @Produces
