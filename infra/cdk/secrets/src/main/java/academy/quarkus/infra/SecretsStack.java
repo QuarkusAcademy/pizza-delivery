@@ -3,8 +3,12 @@ package academy.quarkus.infra;
 import software.constructs.Construct;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
+
+import org.eclipse.microprofile.config.ConfigProvider;
+
 import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.services.sqs.Queue;
+import software.amazon.awscdk.services.ssm.StringParameter;
 
 public class SecretsStack extends Stack {
     public SecretsStack(final Construct scope, final String id) {
@@ -13,12 +17,24 @@ public class SecretsStack extends Stack {
 
     public SecretsStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
+        buildParameter("quarkus.oidc.provider");
+        buildParameter("quarkus.oidc.client-id");
+        buildParameter("quarkus.oidc.credentials.secret");
+    }
 
-        // The code that defines your stack goes here
+    private StringParameter buildParameter(String id) {
+        var resourceId = id
+            .replaceAll("\\.","_")
+            .replaceAll("\\-","_")
+            .toUpperCase();
 
-        // example resource
-        final Queue queue = Queue.Builder.create(this, "SecretsQueue33")
-                 .visibilityTimeout(Duration.seconds(333))
-                 .build();
+        var value = ConfigProvider.getConfig().getValue(id, String.class);
+
+        var param = StringParameter.Builder.create(this, resourceId)
+            .parameterName(resourceId)
+            .stringValue(value)
+            .build();
+
+        return param;
     }
 }

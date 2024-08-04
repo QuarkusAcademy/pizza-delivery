@@ -2,8 +2,7 @@ package academy.quarkus.infra;
 
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.StackProps;
-
-
+import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -40,6 +39,9 @@ public class SecretsApp
     private int doExit(int i) {
         System.exit(i);
         return i;
+    }
+    public static void main(final String[] args) {
+        Quarkus.run(SecretsApp.class, args);
     }
 }
 
