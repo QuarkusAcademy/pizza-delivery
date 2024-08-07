@@ -1,5 +1,7 @@
 package academy.quarkus.infra;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.StartupEvent;
@@ -18,10 +20,15 @@ public class BaseApp
     @Inject
     App app;
 
+    @ConfigProperty(name="certificate.arn")
+    String certificateARN;
+
     public void init(@Observes StartupEvent event){
         var stackProps = StackProps.builder().build();
         var networkStack = new NetworkStack(app, "NetworkStack", stackProps);
         new DatabaseStack(app, "DatabaseStack", stackProps, networkStack);
+        new ECSClusterStack(app, "ECSClusterStack", stackProps, networkStack, certificateARN);
+        
     }
 
     @Produces
