@@ -1,0 +1,17 @@
+{
+  "availability-zones:account=011528277468:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "hosted-zone:account=011528277468:domainName=faermanj.com:region=us-east-1": {
+    "Id": "/hostedzone/Z02599683MQUSFYES2OSV",
+    "Name": "faermanj.com."
+  },
+  "ssm:account=011528277468:parameterName=QUARKUS_OIDC_PROVIDER:region=us-east-1": "google",
+  "ssm:account=011528277468:parameterName=QUARKUS_OIDC_CLIENT_ID:region=us-east-1": "1095049160904-ubfv3jbcbl66qoasjv56idt833b712t2.apps.googleusercontent.com",
+  "ssm:account=011528277468:parameterName=QUARKUS_OIDC_CREDENTIALS_SECRET:region=us-east-1": "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"
+}
