@@ -21,6 +21,8 @@ import software.amazon.awscdk.services.rds.SubnetGroup;
 import software.constructs.Construct;
 
 public class DatabaseStack extends Stack {
+    DatabaseCluster dbcluster;
+    
     public DatabaseStack(final Construct scope, final String id) {
         this(scope, id, null, null);
     }
@@ -60,7 +62,7 @@ public class DatabaseStack extends Stack {
 
         var credentials = Credentials.fromSecret(secret);
 
-        var dbcluster = DatabaseCluster.Builder.create(this, "DatabaseCluster")
+        dbcluster = DatabaseCluster.Builder.create(this, "DatabaseCluster")
             .engine(engine)
             .defaultDatabaseName("pizzadb")
             .vpc(networkStack.vpc)

@@ -11,6 +11,7 @@ import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import software.amazon.awscdk.App;
+import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
 
 @QuarkusMain
@@ -23,12 +24,39 @@ public class BaseApp
     @ConfigProperty(name="certificate.arn")
     String certificateARN;
 
+    @ConfigProperty(name="domain.name")
+    String domainName;
+
+    @ConfigProperty(name="alias.name")
+    String aliasName;
+
+    @SuppressWarnings("unused")
     public void init(@Observes StartupEvent event){
-        var stackProps = StackProps.builder().build();
+        var stackProps = StackProps.builder()
+            .env(Environment.builder()
+                .account(System.getenv("CDK_DEFAULT_ACCOUNT"))
+                .region(System.getenv("CDK_DEFAULT_REGION"))
+                .build())
+            .build();
+
         var networkStack = new NetworkStack(app, "NetworkStack", stackProps);
-        new DatabaseStack(app, "DatabaseStack", stackProps, networkStack);
-        new ECSClusterStack(app, "ECSClusterStack", stackProps, networkStack, certificateARN);
-        
+        var dbStack = new DatabaseStack(app, "DatabaseStack", stackProps, networkStack);
+        var clusterStack = new ECSClusterStack(app, "ECSClusterStack", stackProps, networkStack, certificateARN, domainName, aliasName);
+        var serviceStack = new ECSServiceStack(
+            app, "ECSServiceStack", stackProps, 
+            networkStack, dbStack, 
+            clusterStack.cluster.getClusterName(),
+            512,
+            1024,
+            clusterStack.executionRole.getRoleArn(),
+            "pizza-api",
+            8080,
+            clusterStack.listener.getListenerArn(), 
+            clusterStack.albSG.getSecurityGroupId(),
+            "/api/*",
+            999,
+            "/api/",
+            "caravanacloud/pizza-api:latest");
     }
 
     @Produces
