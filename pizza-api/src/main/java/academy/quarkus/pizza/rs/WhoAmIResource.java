@@ -1,12 +1,8 @@
 package academy.quarkus.pizza.rs;
 
-import org.eclipse.microprofile.jwt.JsonWebToken;
-
-import academy.quarkus.pizza.auth.UserDetails;
+import java.util.Map;
 import io.quarkus.logging.Log;
-import io.quarkus.security.Authenticated;
 import io.quarkus.security.identity.SecurityIdentity;
-import io.vertx.mutiny.ext.auth.User;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -20,9 +16,12 @@ public class WhoAmIResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public UserDetails get(){
+    public Map<String, String> get(){
         var name = id.getPrincipal().getName();
-        var result = new UserDetails(false, name);
+        if (id.isAnonymous()){
+            return Map.of("name", "anonymous");
+        }
+        var result = Map.of("name", name);
         Log.info(result);
         return result;
     }

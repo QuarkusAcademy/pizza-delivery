@@ -27,8 +27,8 @@ public class WhoAmIView extends VerticalLayout{
         // Button click listeners can be defined as lambda expressions
         Button button = new Button("Who am i?", e -> {
             var user = whoami.get();
-            var description = "Is anonymous? " + user.isAnonymous();
-            description +=  " " + user.getUsername();
+            var description = "";
+            description +=  "name: " + user.get("name");
             add(new Paragraph(description));
         });
 
