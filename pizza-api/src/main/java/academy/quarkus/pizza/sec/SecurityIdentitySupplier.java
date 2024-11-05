@@ -3,14 +3,21 @@ package academy.quarkus.pizza.sec;
 import io.quarkus.security.identity.SecurityIdentity;
 import io.quarkus.security.runtime.QuarkusSecurityIdentity;
 import io.smallrye.jwt.auth.principal.DefaultJWTCallerPrincipal;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.context.control.ActivateRequestContext;
+import jakarta.inject.Inject;
 
 import java.util.function.Supplier;
+
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @Dependent
 class SecurityIdentitySupplier implements Supplier<SecurityIdentity> {
     private SecurityIdentity identity;
+
+    @Inject
+    JsonWebToken token;
 
     @Override
     @ActivateRequestContext
@@ -18,18 +25,13 @@ class SecurityIdentitySupplier implements Supplier<SecurityIdentity> {
         if (identity.isAnonymous()){
             return identity;
         }
-        var principal = identity.getPrincipal();
-        var email = (String) null;
-        if (principal instanceof DefaultJWTCallerPrincipal djcp) {
-            email = djcp.getClaim("email");
-        }
-        if (email == null) {
-            //TODO: Handle identities without email
-            return identity;
-        }
         var builder = QuarkusSecurityIdentity.builder(identity);
-        // var roles = authService.getRolesByEmail(email);
-        // roles.stream().forEach(role -> builder.addRole(role));
+        builder.addRole("user");
+
+        var email = (String) token.getClaim("email");
+        if (email != null && email.endsWith("@faermanj.com")) {
+            builder.addRole("admin");
+        }
         var result = builder.build();
         return result;
     }
