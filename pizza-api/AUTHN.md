@@ -41,3 +41,9 @@ curl -X GET http://localhost:8080/api/user/info \
 curl -v -X GET http://localhost:8080/api/user/admin \
    -H "Accept: application/json" \
    -H "Authorization: Bearer $OIDC_ACCESS_TOKEN"
+
+Compartilho aqui dois videos do treinamento que abordam esses temas, que podem ser um pouco confusos:
+Autenticação com Goolge 
+https://youtu.be/XDqPAgH6UFY
+Autorização com RolesAugmentor
+https://youtu.be/fxg5-3hKh7o

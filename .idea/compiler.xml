@@ -6,7 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="pizza-secrets" />
+        <module name="pizza-infra-base" />
+        <module name="pizza-vdn" />
         <module name="pizza-api" />
+        <module name="pizza-core" />
         <module name="pizza-ren" />
       </profile>
     </annotationProcessing>
@@ -17,7 +21,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="pizza-api" options="-parameters" />
+      <module name="pizza-core" options="-parameters" />
+      <module name="pizza-infra-base" options="-parameters" />
       <module name="pizza-ren" options="-parameters" />
+      <module name="pizza-secrets" options="-parameters" />
+      <module name="pizza-vdn" options="-parameters" />
       <module name="pizzas-api" options="-parameters" />
     </option>
   </component>
