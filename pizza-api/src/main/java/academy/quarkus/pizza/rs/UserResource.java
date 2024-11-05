@@ -22,7 +22,7 @@ public class UserResource {
     @Path("admin")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("user")
+    @RolesAllowed("admin")
     public Map<String, String> getAdminInfo(){
         var result = Map.of("requires", "admin");
         return result;

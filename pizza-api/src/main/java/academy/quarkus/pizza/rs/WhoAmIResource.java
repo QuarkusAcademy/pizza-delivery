@@ -28,9 +28,11 @@ public class WhoAmIResource {
         }
         var name = info.getName();
         var email = info.getEmail();
+        var roles = String.join(",", id.getRoles());        
         var result = Map.of(
             "name", name, 
-            "email", email);
+            "email", email,
+            "roles", roles);
         Log.info(result);
         return result;
     }
